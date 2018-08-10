@@ -1,0 +1,45 @@
+import java.sql.*;
+import java.util.*;
+class  InserMultipleRowsDemo
+{
+public static void main(String hii[]) throws Exception
+{
+String url="jdbc:oracle:thin:@localhost:1521:orcl";
+String  query="insert into employees values(%d,'%s',%f,'%s')";
+Connection con;
+Statement st;
+int c=0;
+Class.forName("oracle.jdbc.OracleDriver");
+con=DriverManager.getConnection(url,"system","System1996");
+st=con.createStatement();
+Scanner sc=new Scanner(System.in);
+while(true)
+	{
+	System.out.println("Enter Employee Number ");
+	int id=sc.nextInt();
+    System.out.println("Enter Employee Name ");
+    String ename=sc.next();
+    System.out.println("Enter Employee Sal ");
+    double esal=sc.nextDouble(); 
+     System.out.println("Enter Employee Addr ");
+	 String eaddr=sc.next();
+	 
+	 String Sqlquery=String.format(query,id,ename,esal,eaddr); 
+	 st.executeUpdate(Sqlquery);
+	 System.out.println("data insert successfully");
+	 c++;
+System.out.println("do u want to inserrt more data recard(yes/no)");
+
+	 String option=sc.next();
+	 if(option.equalsIgnoreCase("No"))
+		{
+		
+		System.out.println("total values insert into table\t"+c);
+		break;
+	}
+	
+	}
+con.close();
+}
+}
+

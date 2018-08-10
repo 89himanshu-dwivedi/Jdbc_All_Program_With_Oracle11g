@@ -1,0 +1,55 @@
+import java.sql.*;
+import java.util.*;
+import java.io.*;
+
+class SqlInjectionDemo1
+{
+public static void main(String kl[]) throws Exception
+{
+
+String url="jdbc:oracle:thin:@localhost:1521:orcl";
+String driver="oracle.jdbc.OracleDriver";
+Class.forName(driver);
+Connection con=DriverManager.getConnection(url,"System","System1996");
+
+//String sql="insert into employees  values (?,?,?,?)";
+Statement st=con.createStatement();
+
+Scanner sc=new Scanner(System.in);
+//int c=0;
+
+while(true)
+{
+System.out.println("enter the employees addr");
+String ename=sc.next();
+
+System.out.println("enter the employees Name");
+String eaddr=sc.next();
+
+
+
+ps.setString(1,ename);
+ps.setString(2,eaddr);
+
+String sql="select count(*) from employess where id='"+ename+"' and eaddr='"+eaddr+"' ";
+ResultSet rs=st.executequery(sql);
+ 
+ int c=0;
+ if(rs.netx())
+ c=rs.getInt(1)
+
+if(c==0)
+{ 
+ System.out.println("invalid credentials");
+}
+else
+{
+System.out.println("valid Credential");
+}
+
+//System.out.println("total number of tableupdated"+c);
+
+con.close();
+}
+}
+
